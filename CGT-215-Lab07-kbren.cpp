@@ -2,6 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFPhysics.h>
 
+using namespace std;
+using namespace sf;
+using namespace sfp;
+
 int main()
 {
 	RenderWindow window(VideoMode(800, 600), "Bounce");
