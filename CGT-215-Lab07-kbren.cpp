@@ -94,4 +94,6 @@ int main()
 		window.display();
 	}
 
+	ball.applyImpulse(Vector2f(0, -1000));
+
 }
