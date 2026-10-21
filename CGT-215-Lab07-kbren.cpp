@@ -16,6 +16,7 @@ int main()
 	PhysicsCircle ball;
 	ball.setCenter(Vector2f(400, 100));
 	ball.setRadius(20);
+	ball.applyImpulse(Vector2f(0, -.5));
 	world.AddPhysicsBody(ball);
 
 	//create floor
@@ -53,12 +54,12 @@ int main()
 	centerBox.setStatic(true);
 	world.AddPhysicsBody(centerBox);
 
-	//each time the ball collides with the floor, print "thud" to the console
+	//each time the ball collides with the ceiling, print "thud" to the console
 	int thudCount(0);
-	floor.onCollision = [&thudCount](PhysicsBodyCollisionResult result) {
+	ceiling.onCollision = [&thudCount](PhysicsBodyCollisionResult result) {
 		cout << "thud " << thudCount << endl;
 		thudCount++;
-		};
+		}; 
 
 	//each time the ball collides with the center box, print "bang" to the console
 	int bangCount(0);
@@ -93,7 +94,5 @@ int main()
 		window.draw(centerBox);
 		window.display();
 	}
-
-	ball.applyImpulse(Vector2f(0, -1000));
 
 }
