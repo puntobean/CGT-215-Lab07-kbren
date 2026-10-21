@@ -14,7 +14,7 @@ int main()
 
 	//create the ball
 	PhysicsCircle ball;
-	ball.setCenter(Vector2f(400, 300));
+	ball.setCenter(Vector2f(400, 100));
 	ball.setRadius(20);
 	world.AddPhysicsBody(ball);
 
@@ -46,12 +46,31 @@ int main()
 	rightWall.setStatic(true);
 	world.AddPhysicsBody(rightWall);
 
+	//create center box
+	PhysicsRectangle centerBox;
+	centerBox.setSize(Vector2f(50, 50));
+	centerBox.setCenter(Vector2f(400, 300));
+	centerBox.setStatic(true);
+	world.AddPhysicsBody(centerBox);
+
 	//each time the ball collides with the floor, print "thud" to the console
 	int thudCount(0);
 	floor.onCollision = [&thudCount](PhysicsBodyCollisionResult result) {
 		cout << "thud " << thudCount << endl;
 		thudCount++;
 		};
+
+	//each time the ball collides with the center box, print "bang" to the console
+	int bangCount(0);
+	centerBox.onCollision = [&bangCount](PhysicsBodyCollisionResult result) {
+		cout << "bang " << bangCount << endl;
+		bangCount++;
+			if (bangCount == 3) {
+				cout << "bang count reached 3" << endl;
+				exit(0);
+			}
+		};
+
 	Clock clock;
 	Time lastTime(clock.getElapsedTime());
 	while (true) {
@@ -71,6 +90,7 @@ int main()
 		window.draw(ceiling);
 		window.draw(leftWall);
 		window.draw(rightWall);
+		window.draw(centerBox);
 		window.display();
 	}
 
